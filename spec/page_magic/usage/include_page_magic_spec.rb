@@ -1,6 +1,4 @@
 describe 'including PageMagic' do
-  include Capybara::DSL
-
   context 'lets you define pages' do
     let :page_class do
       Class.new{include PageMagic}
@@ -12,7 +10,7 @@ describe 'including PageMagic' do
     end
 
     it 'lets you define elements' do
-      page_class.is_a?(PageMagic::Elements).should be_true
+      page_class.is_a?(PageMagic::Elements).should be true
     end
   end
 end

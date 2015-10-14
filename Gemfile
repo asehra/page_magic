@@ -15,5 +15,6 @@ end
 group :development do
   gem "jeweler"
   gem 'guard'
+  gem 'guard-rspec'
   gem 'guard-ctags-bundler'
 end

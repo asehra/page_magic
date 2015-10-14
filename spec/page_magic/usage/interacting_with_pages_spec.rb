@@ -26,11 +26,11 @@ describe 'interacting with pages' do
 
   describe 'text_on_page?' do
     it 'returns true if the text is present' do
-      page.text_on_page?('next page').should be_true
+      page.text_on_page?('next page').should be true
     end
 
     it 'returns false if the text is not present' do
-      page.text_on_page?('not on page').should be_false
+      page.text_on_page?('not on page').should be false
     end
   end
 

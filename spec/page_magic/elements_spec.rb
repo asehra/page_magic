@@ -102,7 +102,7 @@ describe PageMagic::Elements do
           arg, browser = {}, double('browser', find: :browser_element)
           parent_page_element = double('parent_browser_element', browser_element: browser)
           page_elements.elements(parent_page_element, arg)
-          arg[:passed_through].should be_true
+          arg[:passed_through].should be true
         end
 
 

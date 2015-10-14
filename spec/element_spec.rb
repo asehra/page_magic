@@ -40,7 +40,7 @@ describe 'Page elements' do
 
       page = page.new
       page.visit
-      page.form.form_link.visible?.should be_true
+      page.form.form_link.should be_visible
     end
   end
 
@@ -203,7 +203,7 @@ describe 'Page elements' do
     end
 
     it 'can have elements' do
-      @elements_page.form_by_css.link_in_form.visible?.should be_true
+      @elements_page.form_by_css.link_in_form.should be_visible
     end
   end
 

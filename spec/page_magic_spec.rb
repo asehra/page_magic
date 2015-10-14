@@ -15,7 +15,7 @@ describe PageMagic do
     context 'specifying the browser' do
       it 'loads the correct driver' do
         session = described_class.session(browser: :firefox)
-        session.raw_session.driver.is_a?(Capybara::Selenium::Driver).should be_true
+        session.raw_session.driver.is_a?(Capybara::Selenium::Driver).should be true
       end
     end
 
