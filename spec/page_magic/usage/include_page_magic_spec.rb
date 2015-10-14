@@ -6,11 +6,11 @@ describe 'including PageMagic' do
 
     it 'gives a method for defining the url' do
       page_class.url :url
-      page_class.url.should == :url
+      expect(page_class.url).to eq(:url)
     end
 
     it 'lets you define elements' do
-      page_class.is_a?(PageMagic::Elements).should be true
+      expect(page_class).to be_a(PageMagic::Elements)
     end
   end
 end

@@ -48,7 +48,7 @@ describe PageMagic::ElementContext do
       end
     end
 
-    described_class.new(page1.new(session), session, self).page_method.should == :called
+    expect(described_class.new(page1.new(session), session, self).page_method).to eq(:called)
   end
 
   describe 'retrieving elements' do
@@ -57,7 +57,7 @@ describe PageMagic::ElementContext do
       page.visit
 
       element = described_class.new(page, page.browser, self).a_link
-      element.text.should == 'a link'
+      expect(element.text).to eq('a link')
     end
   end
 
@@ -95,8 +95,8 @@ describe PageMagic::ElementContext do
 
     before do
       browser = page.browser
-      browser.should_receive(:call_in_before_hook)
-      browser.should_receive(:call_in_after_before_hook)
+      expect(browser).to receive(:call_in_before_hook)
+      expect(browser).to receive(:call_in_after_before_hook)
     end
 
 

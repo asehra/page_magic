@@ -27,31 +27,31 @@ describe 'The Elements of a Page' do
     describe 'browser integration' do
       it "should use capybara's default session if a one is not supplied" do
         Capybara.default_driver = :rack_test
-        my_page_class.new.browser.mode.should == :rack_test
+        expect(my_page_class.new.browser.mode).to eq(:rack_test)
       end
     end
 
 
     it 'should copy fields on to element' do
       new_page = my_page_class.new
-      @page.element_definitions[:next].call(@page).should_not equal(new_page.element_definitions[:next].call(new_page))
+      expect(@page.element_definitions[:next].call(@page)).not_to equal(new_page.element_definitions[:next].call(new_page))
     end
 
     it 'gives access to the page text' do
-      @page.visit.text.should == 'next page'
+      expect(@page.visit.text).to eq('next page')
     end
 
     it 'should access a field' do
       @page.visit
       @page.next.click
-      @page.text.should == 'page 2 content'
+      expect(@page.text).to eq('page 2 content')
     end
 
     it 'are registered at class level' do
       PageMagic.instance_variable_set(:@pages, nil)
 
       page = Class.new { include PageMagic }
-      PageMagic.pages.should == [page]
+      expect(PageMagic.pages).to eq([page])
     end
   end
 
@@ -69,16 +69,16 @@ describe 'The Elements of a Page' do
 
     context 'children' do
       it 'should inherit elements defined on the parent class' do
-        child_page.element_definitions.should include(:next)
+        expect(child_page.element_definitions).to include(:next)
       end
 
       it 'are added to PageMagic.pages list' do
-        PageMagic.pages.should include(child_page)
+        expect(PageMagic.pages).to include(child_page)
       end
 
       it 'should pass on element definitions to their children' do
         grand_child_class = Class.new(child_page)
-        grand_child_class.element_definitions.should include(:next)
+        expect(grand_child_class.element_definitions).to include(:next)
       end
     end
   end

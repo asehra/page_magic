@@ -40,7 +40,7 @@ describe 'Page elements' do
 
       page = page.new
       page.visit
-      page.form.form_link.should be_visible
+      expect(page.form.form_link).to be_visible
     end
   end
 
@@ -75,18 +75,18 @@ describe 'Page elements' do
 
     it 'should locate an element using its id' do
       element = PageMagic::Element.new(:my_input, page, type: :text_field, selector: {id: 'field_id'}).browser_element
-      element.value.should == 'filled in'
+      expect(element.value).to eq('filled in')
     end
 
     it 'should locate an element using its name' do
       element = PageMagic::Element.new(:my_input, page, type: :text_field, selector: {name: 'field_name'}).browser_element
-      element.value.should == 'filled in'
+      expect(element.value).to eq('filled in')
     end
 
 
     it 'should locate an element using its label' do
       element = PageMagic::Element.new(:my_link, page, type: :link, selector: {label: 'enter text'}).browser_element
-      element[:id].should == 'field_id'
+      expect(element[:id]).to eq('field_id')
     end
 
     it 'should raise an exception when finding another element using its text' do
@@ -95,12 +95,12 @@ describe 'Page elements' do
 
     it 'should locate an element using css' do
       element = PageMagic::Element.new(:my_link, page, type: :link, selector: {css: "input[name='field_name']"}).browser_element
-      element[:id].should == 'field_id'
+      expect(element[:id]).to eq('field_id')
     end
 
 
     it 'should return a prefetched value' do
-      PageMagic::Element.new(:help, page, type: :link, browser_element: :prefetched_object).browser_element.should == :prefetched_object
+      expect(PageMagic::Element.new(:help, page, type: :link, browser_element: :prefetched_object).browser_element).to eq(:prefetched_object)
     end
 
     it 'should raise errors for unsupported selectors' do
@@ -110,12 +110,12 @@ describe 'Page elements' do
     context 'text selector' do
       it 'should locate a link' do
         element = PageMagic::Element.new(:my_link, page, type: :link, selector: {text: 'my link'}).browser_element
-        element[:id].should == 'my_link'
+        expect(element[:id]).to eq('my_link')
       end
 
       it 'should locate a button' do
         element = PageMagic::Element.new(:my_button, page, type: :button, selector: {text: 'my button'}).browser_element
-        element[:id].should == 'my_button'
+        expect(element[:id]).to eq('my_button')
       end
     end
   end
@@ -162,7 +162,7 @@ describe 'Page elements' do
       end
       page = page_class.new
 
-      PageMagic::Element.new(:help, page, type: :link, selector: :selector).session.should == page.session
+      expect(PageMagic::Element.new(:help, page, type: :link, selector: :selector).session).to eq(page.session)
     end
   end
 
@@ -194,7 +194,7 @@ describe 'Page elements' do
 
     describe 'method_missing' do
       it 'should delegate to capybara' do
-        @elements_page.form_by_css.visible?.should be(true)
+        expect(@elements_page.form_by_css.visible?).to be(true)
       end
 
       it 'should throw default exception if the method does not exist on the capybara object' do
@@ -203,7 +203,7 @@ describe 'Page elements' do
     end
 
     it 'can have elements' do
-      @elements_page.form_by_css.link_in_form.should be_visible
+      expect(@elements_page.form_by_css.link_in_form).to be_visible
     end
   end
 

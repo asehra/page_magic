@@ -28,7 +28,7 @@ describe PageMagic::Session do
     end
     context 'page url has not changed' do
       it 'returns the original page' do
-        browser.should_receive(:visit).with(page.url)
+        expect(browser).to receive(:visit).with(page.url)
         allow(browser).to receive(:current_path).and_return('/page1')
         subject.visit(page)
         expect(subject.current_page).to be_an_instance_of(page)
@@ -37,7 +37,7 @@ describe PageMagic::Session do
 
     context 'page url has changed' do
       it 'returns the mapped page object' do
-        browser.should_receive(:visit).with(page.url)
+        expect(browser).to receive(:visit).with(page.url)
         subject.visit(page)
         allow(browser).to receive(:current_path).and_return('/another_page1')
         expect(subject.current_page).to be_an_instance_of(another_page_class)
@@ -75,14 +75,14 @@ describe PageMagic::Session do
       it 'uses this url instead of the one defined on the page class' do
         expect(browser).to receive(:visit).with(:custom_url)
         session = PageMagic::Session.new(browser).visit(page, url: :custom_url)
-        session.current_page.should be_a(page)
+        expect(session.current_page).to be_a(page)
       end
     end
 
     it 'visits the url on defined on the page class' do
-      browser.should_receive(:visit).with(page.url)
+      expect(browser).to receive(:visit).with(page.url)
       session = PageMagic::Session.new(browser).visit(page)
-      session.current_page.should be_a(page)
+      expect(session.current_page).to be_a(page)
     end
   end
 
@@ -90,14 +90,14 @@ describe PageMagic::Session do
 
   it 'should return the current url' do
     session = PageMagic::Session.new(browser)
-    session.current_url.should == 'url'
+    expect(session.current_url).to eq('url')
   end
 
   context 'method_missing' do
     it 'should delegate to current page' do
-      browser.stub(:visit)
+      allow(browser).to receive(:visit)
       session = PageMagic::Session.new(browser).visit(page)
-      session.my_method.should be(:called)
+      expect(session.my_method).to be(:called)
     end
   end
 end

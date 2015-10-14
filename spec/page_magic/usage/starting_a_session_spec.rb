@@ -15,7 +15,7 @@ describe 'PageMagic.session' do
   context 'specificying a browser' do
     it 'loads the driver for the specified browser' do
       session = PageMagic.session(browser: :firefox)
-      session.raw_session.driver.is_a?(Capybara::Selenium::Driver).should be true
+      expect(session.raw_session.driver).to be_a(Capybara::Selenium::Driver)
     end
   end
 
@@ -24,14 +24,14 @@ describe 'PageMagic.session' do
     it 'requires the app to be supplied' do
       session = PageMagic.session(application: app_class.new)
       session.raw_session.visit('/')
-      session.raw_session.text.should == 'hello world!!'
+      expect(session.raw_session.text).to eq('hello world!!')
     end
 
     it 'can run against an rack application using a particular browser' do
       session = PageMagic.session(browser: :rack_test, application: app_class.new)
-      session.raw_session.mode.should == :rack_test
+      expect(session.raw_session.mode).to eq(:rack_test)
       session.raw_session.visit('/')
-      session.raw_session.text.should == 'hello world!!'
+      expect(session.raw_session.text).to eq('hello world!!')
     end
   end
 
