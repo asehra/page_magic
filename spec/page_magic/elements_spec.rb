@@ -66,30 +66,28 @@ describe PageMagic::Elements do
         context 'browser_element' do
           before :each do
 
-            @browser, @element, @parent_page_element = double('browser'), double('element'), double('parent_page_element')
+            @browser, @element, @parent_page_element = double('browser'), spy('element'), double('parent_page_element')
             allow(@parent_page_element).to receive(:browser_element).and_return(@browser)
             expect(@browser).to receive(:find).with(:css, :selector).and_return(@element)
           end
 
           it 'should be assigned when selector is passed to section method' do
-            element = @element
-
             page_elements.section :page_section, css: :selector do
-              browser_element.should == element
+              browser_element.example
             end
 
             page_elements.element_definitions[:page_section].call(@parent_page_element)
+            expect(@element).to have_received(:example)
           end
 
           it 'should be assigned when selector is defined in the block passed to the section method' do
-            element = @element
-
             page_elements.section :page_section do
               selector css: :selector
-              browser_element.should == element
+              browser_element.example
             end
 
             page_elements.elements(@parent_page_element, nil)
+            expect(@element).to have_received(:example)
           end
         end
 
